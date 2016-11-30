@@ -12,13 +12,13 @@ function character_detail(searchInput){
     var species = ("Species : " + swapi.results[searchInput].species)
     var homeworld = ("Homeworld : " + swapi.results[searchInput].homeworld)
     var movie_list = [];
-    for(i = 1; i < swapi.results[searchInput].films.length; i++){
+    for(i = 0; i < swapi.results[searchInput].films.length; i++){
         movie_list[movie_list.length] = (swapi.results[searchInput].films[i] + '<br>')};
     var vehicle_list = [];
-    for(i = 1; i < swapi.results[searchInput].vehicles.length; i++){
+    for(i = 0; i < swapi.results[searchInput].vehicles.length; i++){
         vehicle_list[vehicle_list.length] = (swapi.results[searchInput].vehicles[i] + '<br>')};
     var starship_list = [];
-    for(i = 1; i < swapi.results[searchInput].starships.length; i++){
+    for(i = 0; i < swapi.results[searchInput].starships.length; i++){
         starship_list[starship_list.length] = (swapi.results[searchInput].starships[i] + '<br>')};
     $('#header').html("This character's stats are: ") + $('#p1').html(name) + $('#p2').html(height) + $('#p3').html(mass) +
     $('#p4').html(hair_color) + $('#p5').html(skin_color) + $('#p6').html(eye_color) +
@@ -54,4 +54,10 @@ function film_list(){
         film_list[film_list.length] = (swapi.results[i].title + '<br>');
     $('#list').html(film_list)
 }})}
+function clear(){
+    $('#content').empty()
+}
 character_detail(0)
+$("#allVehicles").click(vehicle_list)
+$("#allCharacters").click(character_list)
+$("#allFilms").click(film_list)
