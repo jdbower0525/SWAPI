@@ -1,25 +1,28 @@
 
 function character_detail(searchInput){
-    $.getJSON( "http://swapi.co/api/people/", function ( swapi ) {
-    var name = ( "Name : " + swapi.results[searchInput].name);
-    var height = ("Height : " + swapi.results[searchInput].height);
-    var mass = ("Mass : " + swapi.results[searchInput].mass);
-    var hair_color = ("Hair Color : " + swapi.results[searchInput].hair_color);
-    var skin_color = ("Skin Color : " + swapi.results[searchInput].skin_color);
-    var eye_color = ("Eye Color : " + swapi.results[searchInput].eye_color);
-    var birth_year = ("Birth Year : " + swapi.results[searchInput].birth_year);
-    var gender = ("Gender : " + swapi.results[searchInput].gender);
-    var species = ("Species : " + swapi.results[searchInput].species)
-    var homeworld = ("Homeworld : " + swapi.results[searchInput].homeworld)
+    var searchInput = document.getElementById("searchInputchar").value
+    console.log(searchInput)
+    $.getJSON( "http://swapi.co/api/people/" + searchInput + '/', function ( swapi ) {
+    console.log(swapi.name)
+    var name = ( "Name : " + swapi.name);
+    var height = ("Height : " + swapi.height);
+    var mass = ("Mass : " + swapi.mass);
+    var hair_color = ("Hair Color : " + swapi.hair_color);
+    var skin_color = ("Skin Color : " + swapi.skin_color);
+    var eye_color = ("Eye Color : " + swapi.eye_color);
+    var birth_year = ("Birth Year : " + swapi.birth_year);
+    var gender = ("Gender : " + swapi.gender);
+    var species = ("Species : " + swapi.species)
+    var homeworld = ("Homeworld : " + swapi.homeworld)
     var movie_list = [];
-    for(i = 0; i < swapi.results[searchInput].films.length; i++){
-        movie_list[movie_list.length] = (swapi.results[searchInput].films[i] + '<br>')};
+    for(i = 0; i < swapi.films.length; i++){
+        movie_list[movie_list.length] = (swapi.films[i] + '<br>')};
     var vehicle_list = [];
-    for(i = 0; i < swapi.results[searchInput].vehicles.length; i++){
-        vehicle_list[vehicle_list.length] = (swapi.results[searchInput].vehicles[i] + '<br>')};
+    for(i = 0; i < swapi.vehicles.length; i++){
+        vehicle_list[vehicle_list.length] = (swapi.vehicles[i] + '<br>')};
     var starship_list = [];
-    for(i = 0; i < swapi.results[searchInput].starships.length; i++){
-        starship_list[starship_list.length] = (swapi.results[searchInput].starships[i] + '<br>')};
+    for(i = 0; i < swapi.starships.length; i++){
+        starship_list[starship_list.length] = (swapi.starships[i] + '<br>')};
     $('#header').html("This character's stats are: ") + $('#p1').html(name) + $('#p2').html(height) + $('#p3').html(mass) +
     $('#p4').html(hair_color) + $('#p5').html(skin_color) + $('#p6').html(eye_color) +
     $('#p7').html(birth_year) + $('#p8').html(gender) + $('#p9').html(species) +
@@ -47,6 +50,22 @@ function vehicle_list(){
     $('#list').html(vehicle_list);
 }})}}
 
+function vehicle_detail(){
+    var searchInput = document.getElementById("searchInputveh").value
+    $.getJSON( "http://swapi.co/api/vehicles/" + searchInput + '/', function ( swapi ) {
+        var name = ( "Name : " + swapi.name);
+        var model = ("Model : " + swapi.model);
+        var manufacturer = ("Manufacturer : " + swapi.manufacturer);
+        var vehicle_class = ("Vehicle Class : " + swapi.vehicle_class);
+        var cost = ("Cost In Credits : " + swapi.cost_in_credits);
+        $('#header').html("This vehicle's stats are: ") + $('#p1').html(name) + $('#p2').html(model) + $('#p3').html(manufacturer) +
+        $('#p4').html(vehicle_class) + $('#p5').html(cost) + $('#p6').html('') + $('#p7').html('') + $('#p8').html('') + $('#p9').html('') +
+        $('#p10').html('')
+        $('#list').html('') + $('#listheader').html('')
+        $('#list2').html('') + $('#list2header').html('')
+        $('#list3').html('') + $('#list3header').html('')
+})}
+
 function film_list(){
     var film_list = []
     $.getJSON( "http://swapi.co/api/films/", function ( swapi ) {
@@ -54,10 +73,33 @@ function film_list(){
         film_list[film_list.length] = (swapi.results[i].title + '<br>');
     $('#list').html(film_list)
 }})}
-function clear(){
-    $('#content').empty()
-}
-character_detail(0)
+
+function film_detail(){
+    var searchInput = document.getElementById("searchInputfilm").value
+    $.getJSON( "http://swapi.co/api/films/" + searchInput + '/', function ( swapi ) {
+        var title = ( "Title : " + swapi.title);
+        var director = ("Director : " + swapi.director);
+        var producer = ("Producer : " + swapi.producer);
+        var release_date = ("Release Date : " + swapi.release_date);
+        var opening = ("Opening Crawl : " + swapi.opening_crawl);
+        $('#header').html("This films stat's are: ") + $('#p1').html(title) + $('#p2').html(director) + $('#p3').html(producer) +
+        $('#p4').html(release_date) + $('#p5').html(opening) + $('#p6').html('') + $('#p7').html('') + $('#p8').html('') + $('#p9').html('') +
+        $('#p10').html('')
+        $('#list').html('') + $('#listheader').html('')
+        $('#list2').html('') + $('#list2header').html('')
+        $('#list3').html('') + $('#list3header').html('')
+})}
+
+function filmsbyId(list_urls){
+    var list_films = list_urls
+    for(var i=0; i<list_films.length; i++){
+    $.ajax(list_films[i]).done(function(results){
+        $('#films').html($('#films').html() + '<br>' + results['title'] )
+})}}
+
 $("#allVehicles").click(vehicle_list)
 $("#allCharacters").click(character_list)
 $("#allFilms").click(film_list)
+$("#submitchar").click(character_detail)
+$("#submitveh").click(vehicle_detail)
+$("#submitfilm").click(film_detail)
