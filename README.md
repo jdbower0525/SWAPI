@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## SWAPI ##
 
 The Star Wars API is a well known resource for software developers to practice
@@ -12,3 +13,8 @@ on at a later date.
 
 (Note, the API is missing some ID#s, so a blank query is the result of that
 ID# not existing.  This is most prevalent in the vehicle search.)
+=======
+# SWAPI
+
+The Star Wars API practice program is meant to help us practice using APIs and getting data out of html in a usable way.
+>>>>>>> de2fb68755116469098ceae491e9d8e2faeef581
